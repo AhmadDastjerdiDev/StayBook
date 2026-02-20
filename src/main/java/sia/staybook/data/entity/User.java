@@ -1,4 +1,4 @@
-package sia.staybook;
+package sia.staybook.data.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

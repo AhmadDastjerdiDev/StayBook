@@ -1,7 +1,7 @@
-package sia.staybook.data;
+package sia.staybook.data.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import sia.staybook.User;
+import sia.staybook.data.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 }
