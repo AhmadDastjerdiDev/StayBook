@@ -25,9 +25,17 @@ public class AccommodationServiceImpl implements AccommodationService{
     }
 
     @Override
-    public List<AccommodationResponseDto> searchAccommodation(String city, BigDecimal minPrice, BigDecimal maxPrice, Integer capacity, Pageable pageable) {
-        return List.of();
+    public Page<AccommodationResponseDto> searchAccommodation(
+            String city,
+            BigDecimal minPrice,
+            BigDecimal maxPrice,
+            Integer capacity,
+            Pageable pageable) {
+        return accommodationRepo.findByCityContainingIgnoreCaseAndPricePerNightBetweenAndCapacityGreaterThanEqual(
+                city,
+                minPrice,
+                maxPrice,
+                capacity,
+                pageable).map(AccommodationMapper::toDto);
     }
-
-
 }

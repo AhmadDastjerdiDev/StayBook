@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface AccommodationService {
     public Page<AccommodationResponseDto> getAllAccommodations(Pageable pageable);
-    public List<AccommodationResponseDto> searchAccommodation(
+    public Page<AccommodationResponseDto> searchAccommodation(
             String city,
             BigDecimal minPrice,
             BigDecimal maxPrice,
