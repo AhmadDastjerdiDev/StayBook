@@ -1,6 +1,8 @@
 package sia.staybook.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import sia.staybook.data.entity.Accommodation;
 import sia.staybook.dto.AccommodationResponseDto;
 
 import org.springframework.data.domain.Pageable;
@@ -16,4 +18,5 @@ public interface AccommodationService {
             Integer capacity,
             Pageable pageable
     );
+    public AccommodationResponseDto getAccommodationById(Long id);
 }
