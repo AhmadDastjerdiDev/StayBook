@@ -7,12 +7,21 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Accommodation {
+
+    public Accommodation(String title, String city, String description, BigDecimal pricePerNight, int capacity, User owner){
+        this.title = title;
+        this.city = city;
+        this.description = description;
+        this.pricePerNight = pricePerNight;
+        this.capacity = capacity;
+        this.owner = owner;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -32,8 +41,13 @@ public class Accommodation {
     @Column(nullable = false)
     private int capacity;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @PrePersist
+    private void prePersist(){
+        this.createdAt = LocalDateTime.now();
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)

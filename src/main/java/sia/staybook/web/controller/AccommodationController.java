@@ -1,14 +1,14 @@
 package sia.staybook.web.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import sia.staybook.dto.AccommodationRequestDto;
 import sia.staybook.dto.AccommodationResponseDto;
 import sia.staybook.service.AccommodationService;
 
@@ -48,5 +48,12 @@ public class AccommodationController {
     @GetMapping("/{id}")
     public AccommodationResponseDto getAccommodationById(@PathVariable Long id){
         return accommodationService.getAccommodationById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public AccommodationResponseDto createAccommodation(
+            @Valid @RequestBody AccommodationRequestDto accoRequestDto){
+        return accommodationService.saveAccommodation(accoRequestDto);
     }
 }
