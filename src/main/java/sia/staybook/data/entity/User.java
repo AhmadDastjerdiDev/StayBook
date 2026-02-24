@@ -1,6 +1,7 @@
 package sia.staybook.data.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
+
+    public User(String email, String password, String fullName, String phone, Role role){
+        this.email = email;
+        this.password = password;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.role = role;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
