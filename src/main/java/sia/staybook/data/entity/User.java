@@ -1,19 +1,17 @@
 package sia.staybook.data.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
-    public User(String email, String password, String fullName, String phone, Role role){
+    public User(String email, String passwordHash, String fullName, String phone, Role role){
         this.email = email;
-        this.password = password;
+        this.passwordHash = passwordHash;
         this.fullName = fullName;
         this.phone = phone;
         this.role = role;
@@ -27,7 +25,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private String password;
+    private String passwordHash;
 
     @Column(nullable = false)
     private String fullName;
@@ -35,6 +33,7 @@ public class User {
     @Column(nullable = false)
     private String phone;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 

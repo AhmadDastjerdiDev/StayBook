@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import sia.staybook.data.entity.User;
 import sia.staybook.data.repository.UserRepository;
+import sia.staybook.dto.LoginRequestDto;
 import sia.staybook.dto.RegistrationRequestDto;
 
 @Service
@@ -14,9 +15,9 @@ public class AuthServiceImpl {
     private UserRepository userRepo;
     private PasswordEncoder passwordEncoder;
 
-    public void register(RegistrationRequestDto registrationRequestDto){
+    public void register(RegistrationRequestDto registrationRequestDto) {
 
-        if(userRepo.existsByEmail(registrationRequestDto.getEmail())){
+        if (userRepo.existsByEmail(registrationRequestDto.getEmail())) {
             throw new RuntimeException("Email is repetitive!");
         }
         User user = new User(

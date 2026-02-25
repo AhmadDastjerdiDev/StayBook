@@ -17,4 +17,6 @@ public class RegistrationController {
     public void register(@Valid @RequestBody RegistrationRequestDto dto){
         authService.register(dto);
     }
+
+
 }
