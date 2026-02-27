@@ -10,10 +10,10 @@ import sia.staybook.dto.RegistrationRequestDto;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl {
+public class AuthServiceImpl implements AuthService{
 
-    private UserRepository userRepo;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepo;
+    private final PasswordEncoder passwordEncoder;
 
     public void register(RegistrationRequestDto registrationRequestDto) {
 

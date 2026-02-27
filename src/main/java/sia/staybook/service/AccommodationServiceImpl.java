@@ -16,13 +16,11 @@ import sia.staybook.mapper.AccommodationMapper;
 
 import java.math.BigDecimal;
 
-
 @Service
 @RequiredArgsConstructor
 public class AccommodationServiceImpl implements AccommodationService{
 
     private final AccommodationRepository accommodationRepo;
-    private final ModelMapper modelMapper;
     private final UserRepository userRepo;
 
     @Override

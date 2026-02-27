@@ -1,9 +1,7 @@
 package sia.staybook.service;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import sia.staybook.data.entity.Accommodation;
@@ -53,26 +51,24 @@ public class BookingServiceImpl implements BookingService{
         BigDecimal totalPrice = accommodation.getPricePerNight().multiply(BigDecimal.valueOf(nights));
 
         Booking booking = new Booking(
-                guest,
-                accommodation,
                 bookingRequestDto.getCheckIn(),
                 bookingRequestDto.getCheckOut(),
                 totalPrice,
-                Booking.Status.PENDING
+                Booking.Status.PENDING,
+                guest,
+                accommodation
         );
 
         Booking saved = bookingRepo.save(booking);
 
-
-
         return new BookingResponseDto(
                 saved.getId(),
-                saved.getGuest().getId(),
-                saved.getAccommodation().getId(),
                 saved.getCheckIn(),
                 saved.getCheckOut(),
                 saved.getTotalPrice(),
-                saved.getStatus()
+                saved.getStatus(),
+                saved.getGuest().getId(),
+                saved.getAccommodation().getId()
         );
     }
 }

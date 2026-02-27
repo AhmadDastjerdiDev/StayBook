@@ -24,9 +24,18 @@ public class BookingResponseDto {
 
     private Status status;
 
-    private User guest;
+    private Long guestId;
 
-    private Accommodation accommodation;
+    private Long accommodationId;
 
 
+    public BookingResponseDto(Long id, LocalDateTime checkIn, LocalDateTime checkOut, BigDecimal totalPrice, Status status, Long guestId, Long accommodationId) {
+        this.id = id;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.guestId = guestId;
+        this.accommodationId = accommodationId;
+    }
 }

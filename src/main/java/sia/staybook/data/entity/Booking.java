@@ -15,13 +15,13 @@ import java.util.Date;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Booking {
 
-    public Booking(User guest, Accommodation accommodation,  LocalDateTime checkIn, LocalDateTime checkOut, BigDecimal totalPrice, Status status){
-        this.guest = guest;
-        this.accommodation = accommodation;
+    public Booking(LocalDateTime checkIn, LocalDateTime checkOut, BigDecimal totalPrice, Status status, User guest, Accommodation accommodation){
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.totalPrice = totalPrice;
-        this.status = status;;
+        this.status = status;
+        this.guest = guest;
+        this.accommodation = accommodation;
     }
 
     @Id
