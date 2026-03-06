@@ -24,8 +24,8 @@ public class AccommodationController {
     @GetMapping
     public Page<AccommodationResponseDto> getAllAccommodations(
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
-            Pageable pageable){
-       return accommodationService.getAllAccommodations(pageable);
+            Pageable pageable) {
+        return accommodationService.getAllAccommodations(pageable);
     }
 
     @GetMapping("/search")
@@ -35,7 +35,7 @@ public class AccommodationController {
             BigDecimal maxPrice,
             Integer capacity,
             Pageable pageable
-    ){
+    ) {
         return accommodationService.searchAccommodation(
                 city,
                 minPrice,
@@ -46,14 +46,14 @@ public class AccommodationController {
     }
 
     @GetMapping("/{id}")
-    public AccommodationResponseDto getAccommodationById(@PathVariable Long id){
+    public AccommodationResponseDto getAccommodationById(@PathVariable Long id) {
         return accommodationService.getAccommodationById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AccommodationResponseDto createAccommodation(
-            @Valid @RequestBody AccommodationRequestDto accoRequestDto){
+            @Valid @RequestBody AccommodationRequestDto accoRequestDto) {
         return accommodationService.saveAccommodation(accoRequestDto);
     }
 }

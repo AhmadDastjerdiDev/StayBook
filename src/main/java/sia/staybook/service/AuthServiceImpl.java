@@ -5,12 +5,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import sia.staybook.data.entity.User;
 import sia.staybook.data.repository.UserRepository;
-import sia.staybook.dto.LoginRequestDto;
 import sia.staybook.dto.RegistrationRequestDto;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService{
+public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepo;
     private final PasswordEncoder passwordEncoder;

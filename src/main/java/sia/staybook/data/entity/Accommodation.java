@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Accommodation {
 
-    public Accommodation(String title, String city, String description, BigDecimal pricePerNight, int capacity, User owner){
+    public Accommodation(String title, String city, String description, BigDecimal pricePerNight, int capacity, User owner) {
         this.title = title;
         this.city = city;
         this.description = description;
@@ -45,7 +45,7 @@ public class Accommodation {
     private LocalDateTime createdAt;
 
     @PrePersist
-    private void prePersist(){
+    private void prePersist() {
         this.createdAt = LocalDateTime.now();
     }
 

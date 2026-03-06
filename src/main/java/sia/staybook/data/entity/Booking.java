@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @Entity
@@ -15,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Booking {
 
-    public Booking(LocalDateTime checkIn, LocalDateTime checkOut, BigDecimal totalPrice, Status status, User guest, Accommodation accommodation){
+    public Booking(LocalDateTime checkIn, LocalDateTime checkOut, BigDecimal totalPrice, Status status, User guest, Accommodation accommodation) {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.totalPrice = totalPrice;
@@ -40,7 +39,7 @@ public class Booking {
     @Column(nullable = false)
     private Status status;
 
-    public enum Status{
+    public enum Status {
         PENDING, CONFIRMED, CANCELLED
     }
 

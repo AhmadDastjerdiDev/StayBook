@@ -1,6 +1,8 @@
 package sia.staybook.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -12,17 +14,37 @@ import sia.staybook.data.repository.BookingRepository;
 import sia.staybook.data.repository.UserRepository;
 import sia.staybook.dto.BookingRequestDto;
 import sia.staybook.dto.BookingResponseDto;
+import sia.staybook.mapper.BookingMapper;
 
 import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;
 
 @Service
 @RequiredArgsConstructor
-public class BookingServiceImpl implements BookingService{
+public class BookingServiceImpl implements BookingService {
 
     private final UserRepository userRepo;
     private final AccommodationRepository accommodationRepo;
     private final BookingRepository bookingRepo;
+
+    @Override
+    public Page<BookingResponseDto> getBookings(Pageable pageable) {
+        String email = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+
+        User guest = userRepo.findByEmail(email).orElseThrow(() -> new RuntimeException("Email not found!"));
+
+        if (guest.getRole().equals(User.Role.ADMIN)) {
+            return bookingRepo.findAll(pageable).map(BookingMapper::toDto);
+        } else if (guest.getRole().equals(User.Role.USER)) {
+            return bookingRepo.findByGuestEmail(guest.getEmail(), pageable).map(BookingMapper::toDto);
+        } else if (guest.getRole().equals(User.Role.OWNER)) {
+            return bookingRepo.findByAccommodationOwnerEmail(guest.getEmail(), pageable).map(BookingMapper::toDto);
+        }
+        throw new RuntimeException("Unsupported Role!");
+    }
 
     @Override
     public BookingResponseDto createBooking(BookingRequestDto bookingRequestDto) {
@@ -32,21 +54,21 @@ public class BookingServiceImpl implements BookingService{
                 .getAuthentication()
                 .getName();
 
-        User guest = userRepo.findByEmail(email).orElseThrow(()->new RuntimeException("Email not found!"));
+        User guest = userRepo.findByEmail(email).orElseThrow(() -> new RuntimeException("Email not found!"));
 
         Accommodation accommodation = accommodationRepo.findById(bookingRequestDto.getAccommodationId())
-                .orElseThrow(()-> new ResourceNotFoundException("Accommodation not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Accommodation not found!"));
 
-        if(bookingRequestDto.getCheckIn()==null || bookingRequestDto.getCheckOut()==null){
+        if (bookingRequestDto.getCheckIn() == null || bookingRequestDto.getCheckOut() == null) {
             throw new RuntimeException("Check-in and check-out are required!");
         }
 
-        if(bookingRequestDto.getCheckIn().compareTo(bookingRequestDto.getCheckOut()) >= 0){
+        if (bookingRequestDto.getCheckIn().compareTo(bookingRequestDto.getCheckOut()) >= 0) {
             throw new RuntimeException("Check-out date must be after check-in date");
         }
 
         long nights = ChronoUnit.DAYS.between(
-                 bookingRequestDto.getCheckIn(), bookingRequestDto.getCheckOut());
+                bookingRequestDto.getCheckIn(), bookingRequestDto.getCheckOut());
 
         BigDecimal totalPrice = accommodation.getPricePerNight().multiply(BigDecimal.valueOf(nights));
 

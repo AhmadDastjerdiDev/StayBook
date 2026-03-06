@@ -1,7 +1,6 @@
 package sia.staybook.service;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -18,7 +17,7 @@ import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
-public class AccommodationServiceImpl implements AccommodationService{
+public class AccommodationServiceImpl implements AccommodationService {
 
     private final AccommodationRepository accommodationRepo;
     private final UserRepository userRepo;
@@ -46,7 +45,7 @@ public class AccommodationServiceImpl implements AccommodationService{
     @Override
     public AccommodationResponseDto getAccommodationById(Long id) {
         Accommodation accommodation = accommodationRepo.findById(id)
-                .orElseThrow(()->new RuntimeException("Accommodation not found!"));
+                .orElseThrow(() -> new RuntimeException("Accommodation not found!"));
         return AccommodationMapper.toDto(accommodation);
     }
 

@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
     List<AccommodationResponseDto> findByCity(String city);
+
     Page<Accommodation> findByCityContainingIgnoreCaseAndPricePerNightBetweenAndCapacityGreaterThanEqual(
             String city,
             BigDecimal min,

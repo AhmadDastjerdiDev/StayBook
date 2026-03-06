@@ -1,10 +1,9 @@
 package sia.staybook.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sia.staybook.data.entity.Accommodation;
 import sia.staybook.data.entity.Booking.Status;
-import sia.staybook.data.entity.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class BookingResponseDto {
 
     private Long id;
